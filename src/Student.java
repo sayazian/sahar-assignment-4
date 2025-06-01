@@ -13,43 +13,23 @@ public class Student {
         this.grade = grade;
     }
 
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public String getCourse() {
-        return course;
+    public String getCourseWord() {
+        return course.replaceAll("\\d", "").strip();
     }
 
     public int getGrade() {
         return grade;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public String toString() {
+        return studentId + "," + studentName + "," + course + "," + grade;
     }
-
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
-    public void setGrade(int grade) {
-        this.grade = grade;
-    }
-
     public static class GradeComparator implements Comparator {
         @Override
         public int compare(Object o1, Object o2) {
             Student s1 = (Student) o1;
             Student s2 = (Student) o2;
-            if (s1.getGrade() > s2.getGrade()) return 1;
-            if (s1.getGrade() < s2.getGrade()) return -1;
-            else return 0;
+            return Integer.compare(s2.getGrade(), s1.getGrade());
         }
-
     }
 }
