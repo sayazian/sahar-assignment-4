@@ -1,13 +1,16 @@
+package com.coderscampus;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String sourceFileAddress = "/Users/sahar/Work/CC/sahar-assignment-4/student-master-list.csv";
+        String sourceFileAddress = "student-master-list.csv";
         Student[] students;
         String[] courses;
         students = readMasterList(sourceFileAddress);
@@ -23,16 +26,18 @@ public class Main {
     }
 
     private static void sortStudents(Student[] students) {
-        try {
-            Arrays.sort(students, new Student.GradeComparator());
-        } catch (NullPointerException exception) {
-            System.out.println("Null");
-        }
+        Arrays.sort(students, new Comparator<>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                return Integer.compare(o2.getGrade(), o1.getGrade());
+            }
+        });
     }
 
     private static void createCourseFile(String course, Student[] students) throws IOException {
         File file = new File(course.strip() + ".csv");
         FileWriter fileWriter = new FileWriter(file);
+        fileWriter.write("Student ID,Student Name,Course,Grade\n");
         for (Student student : students) {
             if (student != null && student.getCourseWord().equals(course)) addStudentToFile(student, fileWriter);
         }

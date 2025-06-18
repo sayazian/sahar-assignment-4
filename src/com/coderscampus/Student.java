@@ -1,10 +1,10 @@
-import java.util.Comparator;
+package com.coderscampus;
 
 public class Student {
     private final int studentId;
-    private String studentName;
-    private String course;
-    private int grade;
+    private final String studentName;
+    private final String course;
+    private final int grade;
 
     public Student(int studentId, String studentName, String course, int grade) {
         this.studentId = studentId;
@@ -23,13 +23,5 @@ public class Student {
 
     public String toString() {
         return studentId + "," + studentName + "," + course + "," + grade;
-    }
-    public static class GradeComparator implements Comparator {
-        @Override
-        public int compare(Object o1, Object o2) {
-            Student s1 = (Student) o1;
-            Student s2 = (Student) o2;
-            return Integer.compare(s2.getGrade(), s1.getGrade());
-        }
     }
 }
