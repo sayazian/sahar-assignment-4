@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class StudentService {
-    public static void sortStudents(Student[] students) {
+    public void sortStudents(Student[] students) {
         Arrays.sort(students, new Comparator<>() {
             @Override
             public int compare(Student o1, Student o2) {
@@ -16,7 +16,7 @@ public class StudentService {
         });
     }
 
-    public static String[] extractCourses(Student[] students) {
+    public String[] extractCourses(Student[] students) {
         String[] courses = new String[100];
         String course;
         for (Student student : students) {
@@ -39,14 +39,16 @@ public class StudentService {
         return false;
     }
 
-
-    public static Student[] readMasterList(String sourceFileAddress) throws FileNotFoundException {
+    public Scanner openScanner(String sourceFileAddress) throws FileNotFoundException {
         File file = new File(sourceFileAddress);
+        return new Scanner(file);
+    }
+
+    public Student[] readMasterList(Scanner input) {
         Student[] students = new Student[100];
-        Scanner input = new Scanner(file);
-        String line = input.nextLine();
         int count = 0;
-        line = input.nextLine();
+        input.nextLine();
+        String line = input.nextLine();
         while (line != null) {
             String[] elements = line.split(",");
             students[count] = new Student(Integer.parseInt(elements[0]), elements[1], elements[2], Integer.parseInt(elements[3]));
